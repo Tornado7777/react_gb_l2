@@ -57,8 +57,8 @@ export const MessageList = () => {
     <>
     
       <div>
-        {messageList.map((message) => (
-          <Message message={message} />
+        {messageList.map((message, index) => (
+          <Message message={message} key = {index}/>
         ))}
       </div>
 
