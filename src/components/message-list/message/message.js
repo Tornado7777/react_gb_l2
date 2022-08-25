@@ -10,7 +10,7 @@ export function Message({ message }) {
     >
       <h3>{message.message}</h3>
       <p>{message.author}</p>
-      <p>12.03</p>
+      <p>{message.date}</p>
     </div>
   );
 }
