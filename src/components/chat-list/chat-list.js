@@ -4,10 +4,10 @@ import { Chat } from "./chat";
 
 export const ChatList = () => {
   const [chatList] = useState(["room1", "room2", "room3"]);
-  const [selectedRoom, setSeledRoom] = useState("room1");
+  const [selectedRoom, setSelectedRoom] = useState("room1");
 
   const handleListItemClick = useCallback((room) => {
-    setSeledRoom(room);
+    setSelectedRoom(room);
   }, []);
 
   return (
