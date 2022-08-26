@@ -19,7 +19,7 @@ export const Header = () => {
     <div>
       {menu.map(
         (item) => (
-          <NavLink to={item.to}>{item.title}</NavLink>
+          <NavLink key={item.to} to={item.to}>{item.title}</NavLink>
         )
       )}
     </div>

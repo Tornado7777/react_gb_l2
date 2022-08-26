@@ -18,7 +18,7 @@ root.render(
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} /> 
-        <Route path="/chats/*" element={<ChatPage />} />
+        <Route path="/chat/*" element={<ChatPage />} />
         <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </BrowserRouter>

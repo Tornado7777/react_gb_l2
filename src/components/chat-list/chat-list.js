@@ -1,24 +1,19 @@
 import { List } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Chat } from "./chat";
 
 export const ChatList = () => {
   const [chatList] = useState(["room1", "room2", "room3"]);
-  const [selectedRoom, setSelectedRoom] = useState("room1");
 
-  const handleListItemClick = useCallback((room) => {
-    setSelectedRoom(room);
-  }, []);
+  const { roomId } = useParams();
 
   return (
     <List component="nav">
       {chatList.map((chat) => (
-        <Chat
-          key={chat}
-          title={chat}
-          selected={chat === selectedRoom}
-          handleListItemClick={handleListItemClick}
-        />
+        <Link key={chat} to={`/chat/${chat}`}>
+          <Chat title={chat} selected={chat === roomId} />
+        </Link>
       ))}
     </List>
   );
