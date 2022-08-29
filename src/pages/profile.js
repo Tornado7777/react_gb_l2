@@ -40,9 +40,6 @@ export const ProfilePage = () => {
             label="checkBoxLable2" 
             />
         </FormGroup>
-
-
-        
     </div>
 }
 /**         <div><h1> {data.profileChekBox1.chekBoxState}</h1></div>

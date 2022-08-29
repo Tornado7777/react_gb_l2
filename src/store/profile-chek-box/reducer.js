@@ -6,7 +6,7 @@ const initialState = {
 
 
 
-export function profileChekBoxReducer1 (state = initialState, action) {
+export const profileChekBoxReducer1 =  (state = initialState, action) => {
     switch (action.type) {
         case CHEKBOXLABEL1:
             return { ...state, chekBoxState: action.payload };
@@ -16,7 +16,7 @@ export function profileChekBoxReducer1 (state = initialState, action) {
     }
 };
 
-export function profileChekBoxReducer2 (state = initialState, action) {
+export const profileChekBoxReducer2 = (state = initialState, action)=> {
     switch (action.type) {
         case CHEKBOXLABEL2:
             return { ...state, chekBoxState: action.payload };
