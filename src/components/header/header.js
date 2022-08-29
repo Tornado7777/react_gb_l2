@@ -2,14 +2,14 @@ import { NavLink } from "react-router-dom"
 
 const menu = [
   {
-    title: "Home",
+    title: " Home ",
     to: "/",
   }, {
-    title: "Profile",
+    title: " Profile ",
     to: "/profile",
   },
   {
-    title: "chat",
+    title: " Chat ",
     to: "/chat",
   },
 ]
