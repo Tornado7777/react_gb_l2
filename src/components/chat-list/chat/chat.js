@@ -3,7 +3,7 @@ import { AccountCircle } from "@mui/icons-material";
 import { memo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Chat = memo(({ title, selected, handleListItemClick }) => {
+export const Chat =  memo(({ title, selected, deleteConversationByName }) => {
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -21,17 +21,15 @@ export const Chat = memo(({ title, selected, handleListItemClick }) => {
   }, [navigate]);
   
   return (
-    <ListItemButton
-      selected={selected}
-      onClick={() => handleListItemClick(title)}
-    >
+    <ListItemButton selected={selected}>
       <ListItemIcon>
+        <button onClick={(e) => deleteConversationByName(title, e)}>x</button>
         <AccountCircle />
       </ListItemIcon>
 
       <div>
         <ListItemText primary={title} />
       </div>
-    </ListItemButton>
+    </ListItemButton> 
   );
 });
