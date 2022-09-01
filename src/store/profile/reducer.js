@@ -1,27 +1,21 @@
-import { CHEKBOXLABEL1, CHEKBOXLABEL2 } from "./types";
+import { TOGGLE_VISIBLE_PROFILE, UPDATE_PROFILE } from "./types";
 
-const initialState = { 
-    chekBoxState: false,
-}
-
-
-
-export const profileChekBoxReducer1 =  (state = initialState, action) => {
-    switch (action.type) {
-        case CHEKBOXLABEL1:
-            return { ...state, chekBoxState: state.chekBoxState = action.payload };
-        
-        default:
-            return state;
-    }
+const initialState = {
+  firstName: "firstName",
+  lastName: "lastName",
+  phone: "phone",
+  isVisibleProfile: true,
 };
 
-export const profileChekBoxReducer2 = (state = initialState, action)=> {
-    switch (action.type) {
-        case CHEKBOXLABEL2:
-            return { ...state, chekBoxState: state.chekBoxState = action.payload };
-        
-        default:
-            return state;
-    }
+export const profileReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case TOGGLE_VISIBLE_PROFILE:
+      return { ...state, isVisibleProfile: !state.isVisibleProfile };
+
+    case UPDATE_PROFILE:
+      return { ...state, ...action.payload };
+
+    default:
+      return state;
+  }
 };
