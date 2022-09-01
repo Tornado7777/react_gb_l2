@@ -1,7 +1,7 @@
 import { CHEKBOXLABEL1, CHEKBOXLABEL2 } from "./types";
 
 const initialState = { 
-    chekBoxState: true,
+    chekBoxState: false,
 }
 
 

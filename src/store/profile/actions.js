@@ -1,15 +1,15 @@
-import { CHEKBOXLABEL1, CHEKBOXLABEL2 } from "./types"
+import { TOOGGLE_VISIBLE_PROFILE, UPDATE_PROFILE } from "./types"
 
 export function changeCheckBoxLable1 (inputChekBoxState) {   
     return {
-        type: CHEKBOXLABEL1, 
+        type: TOOGGLE_VISIBLE_PROFILE, 
         chekBoxState: inputChekBoxState,
     };
 };
 
 export function changeCheckBoxLable2 (inputChekBoxState) {   
     return {
-        type: CHEKBOXLABEL2, 
+        type: UPDATE_PROFILE, 
         chekBoxState: inputChekBoxState,
     };
 };
