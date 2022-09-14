@@ -2,21 +2,22 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-import { getPublicApi } from "../api/gists";
+import { getPublicApi, searchGistsByNameApi } from "../api/gists";
 import { counterReducer } from "./counter";
 import { profileChekBoxReducer1, profileChekBoxReducer2 } from "./profile-chek-box"
 import { conversationsReducer } from "./conversations";
 import { messagesReducer } from "./messages";
 import { profileReducer } from "./profile";
 import { gistsReducer } from "./gists";
+import {gistsBySearchReducer} from "./gistsBySearch";
 import { logger, timeScheduler, botMessage } from "./middlewares";
 
-const api = { getPublicApi };
+const api = { getPublicApi, searchGistsByNameApi };
 
 const persistConfig = {
     key: "gbchat",
     storage,
-    whitelist: ["counter","profile",  "messages", "profileChekBox1","profileChekBox2", "conversations", "gists"],
+    //whitelist: ["counter","profile",  "messages", "profileChekBox1","profileChekBox2", "conversations", "gists"],
   };
   
   const persistedReducer = persistReducer(
@@ -28,7 +29,8 @@ const persistConfig = {
       profileChekBox1: profileChekBoxReducer1,
       profileChekBox2: profileChekBoxReducer2,
       conversations: conversationsReducer,
-      gists: gistsReducer      
+      gists: gistsReducer,
+      gistsBySearch: gistsBySearchReducer,      
     })
   );
   
