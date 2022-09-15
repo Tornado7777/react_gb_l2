@@ -7,14 +7,17 @@ import {
 
 
 
-export const sendMessageWithBot = (roomId, message) => (dispatch) => {
+export const sendMessageWithBot = (roomId, message) =>async  (dispatch) => {
   dispatch(sendMessage(roomId, message));
 
   if (message.author === "User") {
+
     setTimeout(() => {
+      
       dispatch(
-        sendMessage(roomId, { author: "Bot", message: "hello from thunk"})
+        sendMessage(roomId, { author: "Bot", message: "hello from thunk", date: String(new Date())})
       );
+
     }, 500);
   }
 };
