@@ -17,8 +17,9 @@ function ShowTime(date){
 
 export function Message({ message, roomId }) {
   const dispatch = useDispatch();
+  console.log("messgage:", message);
   message.date = ShowTime(message.date);
-  //console.log("messgage:", message);
+  console.log("messgage from ShowTime:", message);
   return (
     <div
       className={classNames(styles.message, {

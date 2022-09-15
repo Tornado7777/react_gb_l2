@@ -1,13 +1,31 @@
 import { NavLink } from "react-router-dom";
-import {Button, TextField} from "@mui/material"
+import { Button, TextField } from "@mui/material";
+import { signOut } from "firebase/auth";
+import { auth } from "../../api/firebase";
 import { useContext } from "react";
-import { ThemeContext} from "../../theme-context";
+import { ThemeContext } from "../../theme-context";
 
-const menu = [
+const menuWithOutSession = [
   {
     title: " Home ",
     to: "/",
-  }, {
+  },
+  {
+    title: " Login ",
+    to: "/login",
+  },
+  {
+    title: " Sign UP ",
+    to: "/signup",
+  },
+];
+
+const menuWithSession = [
+  {
+    title: " Home ",
+    to: "/",
+  },
+  {
     title: " Profile ",
     to: "/profile",
   },
@@ -19,19 +37,31 @@ const menu = [
     title: " Gists ",
     to: "/gists",
   },
-]
+];
 
-export const Header = () => {
-  const {theme , themeSetter} = useContext(ThemeContext);
-  console.log("theme: ",theme);
+export const Header = ({ email }) => {
+  const { theme, themeSetter } = useContext(ThemeContext);
+  console.log("theme: ", theme);
   return (
     <div>
-      <TextField sx={{ width: '10ch'}} id="outlined-basic" label={theme.name} variant="outlined" disabled />
-      <Button disabled={theme.name ==="light"} variant="text" onClick={()=> themeSetter("light")}>light</Button>
-      <Button disabled={theme.name ==="dark"} variant="text" onClick={()=> themeSetter("dark")}>dark</Button>
-
+      {!!email && (
+        <div>
+          <h1> USER: {email} </h1>
+        </div>
+      )}
       
-      {menu.map(
+      <Button disabled={email == null} variant="text" onClick={() => signOut(auth)}>Sign Out</Button>
+      <TextField sx={{ width: '10ch' }} id="outlined-basic" label={theme.name} variant="outlined" disabled />
+      <Button disabled={theme.name === "light"} variant="text" onClick={() => themeSetter("light")}>light</Button>
+      <Button disabled={theme.name === "dark"} variant="text" onClick={() => themeSetter("dark")}>dark</Button>
+
+      {!!email && menuWithSession.map(
+        (item) => (
+          <NavLink key={item.to} to={item.to}>{item.title}</NavLink>
+        )
+      )}
+
+      {!email && menuWithOutSession.map(
         (item) => (
           <NavLink key={item.to} to={item.to}>{item.title}</NavLink>
         )
