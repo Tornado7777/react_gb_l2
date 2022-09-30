@@ -11,7 +11,7 @@ export const ChatList = () => {
   return (
     <List component="nav">
       {chatList.map((chat) => (
-        <Link key={chat} to={`/chat/${chat}`}>
+        <Link  key={chat} to={`/chat/${chat}`}>
           <Chat title={chat} selected={chat === roomId} />
         </Link>
       ))}

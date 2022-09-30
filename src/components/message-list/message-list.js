@@ -35,6 +35,8 @@ export const MessageList = () => {
     [roomId]
   );
 
+  const sendMessageSendClick = () => { sendMessage(value)};
+
   const handlePressInput = ({ code }) => {
     if (code === "Enter") {
       sendMessage(value);
@@ -86,13 +88,15 @@ export const MessageList = () => {
         onKeyPress={handlePressInput}
         endAdornment={
           <InputAdornment position="end">
-            {value && <SendIcon onClick={sendMessage} />}
+             {value && <SendIcon onClick={sendMessageSendClick} />}
           </InputAdornment>
         }
       />
     </>
   );
 };
+
+
 
 
 
