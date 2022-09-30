@@ -1,43 +1,45 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+// import PropTypes from "prop-types";
 import { InputAdornment } from "@mui/material";
+import { sendMessageFb, messagessSelector } from "../../store/messages";
 import { Message } from "./message";
 import { Input, SendIcon } from "./styles";
-import { useParams } from "react-router-dom";
 
-function ShowTime() {
-  let date = new Date();
-  return date.toLocaleTimeString();
-}
 
 export const MessageList = () => {
-  const [messageList, setMessageList] = useState({
-    room1: [{ author: "User", message: "test", date: ShowTime() }],
-  });
+  const { roomId } = useParams();
+
+  const selector = useMemo(() => messagessSelector(roomId), [roomId]);
+
+  const messages = useSelector(selector);
+
   const [value, setValue] = useState("");
 
-  const { roomId } = useParams();
+  const dispatch = useDispatch();
 
   const ref = useRef();
 
-  const sendMessage = useCallback(
+  const send = useCallback(
     (message, author = "User") => {
       if (message) {
-        setMessageList((state) => ({
-          ...state,
-          [roomId]: [
-            ...(state[roomId] ?? []),
-            { author, message, date: ShowTime() },
-          ],
-        }));
+        dispatch(sendMessageFb({ message, author},roomId ));
         setValue("");
       }
     },
-    [roomId]
+    [roomId, dispatch]
   );
 
   const handlePressInput = ({ code }) => {
     if (code === "Enter") {
-      sendMessage(value);
+      send(value);
     }
   };
 
@@ -49,31 +51,29 @@ export const MessageList = () => {
         behavior: "smooth",
       });
     }
-  }, [messageList]);
-
+  }, [messages]);
+/*
   useEffect(() => {
-    const messages = messageList[roomId] ?? [];
     const lastMessage = messages[messages.length - 1];
     let timerId = null;
 
     if (messages.length && lastMessage.author === "User") {
       timerId = setTimeout(() => {
-        sendMessage("hello from bot", "Bot");
+        send("hello from bot", "Bot");
       }, 500);
 
       return () => {
         clearInterval(timerId);
       };
     }
-  }, [messageList, roomId, sendMessage]);
-
-  const messages = messageList[roomId] ?? [];
+  }, [send, messages]);
+  */
 
   return (
     <>
       <div ref={ref}>
         {messages.map((message, index) => (
-          <Message message={message} key={index} />
+          <Message message={message} key={index} roomId={roomId} />
         ))}
       </div>
 
@@ -86,7 +86,7 @@ export const MessageList = () => {
         onKeyPress={handlePressInput}
         endAdornment={
           <InputAdornment position="end">
-            {value && <SendIcon onClick={sendMessage} />}
+            {value && <SendIcon onClick={() => send(value)} />}
           </InputAdornment>
         }
       />
@@ -94,5 +94,14 @@ export const MessageList = () => {
   );
 };
 
-
-
+// MessageList.propTypes = {
+//   message: PropTypes.string.isRequired,
+//   o1: PropTypes.shape({
+//     s1: PropTypes.string.isRequired,
+//   }).isRequired,
+//   a: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       s1: PropTypes.string.isRequired,
+//     }).isRequired
+//   ).isRequired,
+// };
