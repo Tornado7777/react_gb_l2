@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { InputAdornment } from "@mui/material";
 import { Message } from "./message";
+import { Input, SendIcon } from "./styles";
 
-function ShowTime(){
+function ShowTime() {
   let date = new Date();
   return date.toLocaleTimeString();
 }
 
-
-
 export const MessageList = () => {
   const [messageList, setMessageList] = useState([]);
   const [value, setValue] = useState("");
+
+  const ref = useRef();
 
   const sendMessage = () => {
     if (value) {
@@ -29,6 +31,16 @@ export const MessageList = () => {
   };
 
   useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollTo({
+        top: ref.current.scrollHeight,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [messageList]);
+
+  useEffect(() => {
     const lastMessage = messageList[messageList.length - 1];
     let timerId = null;
 
@@ -38,7 +50,7 @@ export const MessageList = () => {
           ...messageList,
           { author: "Bot", message: "Hello from Bot", date: ShowTime() },
         ]);
-      }, 1500);
+      }, 500);
 
       return () => {
         clearInterval(timerId);
@@ -48,20 +60,27 @@ export const MessageList = () => {
 
   return (
     <>
-      <div>
-        {messageList.map((message) => (
-          <Message message={message} />
+      <div ref={ref}>
+        {messageList.map((message, index) => (
+          <Message message={message} key={index} />
         ))}
       </div>
 
-      <button onClick={sendMessage}>send</button>
-      <input
+      <Input
+        autoFocus
         fullWidth
         placeholder="Введите сообщение..."
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyPress={handlePressInput}
+        endAdornment={
+          <InputAdornment position="end">
+            {value && <SendIcon onClick={sendMessage} />}
+          </InputAdornment>
+        }
       />
     </>
   );
 };
+
+
