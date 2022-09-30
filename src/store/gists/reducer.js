@@ -4,10 +4,6 @@ const initialState = {
   gists: [],
   pending: false,
   error: null,
-
-  gistsBySearch: [],
-  pendingBySearch: false,
-  errorBySearch: null,
 };
 
 export const gistsReducer = (state = initialState, action) => {

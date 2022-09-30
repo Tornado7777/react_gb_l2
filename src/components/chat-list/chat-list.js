@@ -3,8 +3,8 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  deleteConversation,
-  createConversation,
+  deleteConversationByName as deleteConversation,
+  createConversationByName as createConversation,
   conversationsSelector,
 } from "../../store/conversations";
 import { Chat } from "./chat";
@@ -37,6 +37,8 @@ export const ChatList = () => {
     }
   };
 
+  console.log("State.converstations from chat list:", conversations);
+  
   return (
     <List component="nav">
       <button onClick={createConversationByName}>create</button>
