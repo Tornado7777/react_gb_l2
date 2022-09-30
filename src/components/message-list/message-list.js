@@ -13,7 +13,7 @@ import { sendMessage, messagessSelector } from "../../store/messages";
 import { Message } from "./message";
 import { Input, SendIcon } from "./styles";
 
-// @TODO  переделать как в https://codesandbox.io/s/gbchat-router-7fg2fn?file=/src/App.js:1887-1898
+
 export const MessageList = () => {
   const { roomId } = useParams();
 
@@ -30,7 +30,7 @@ export const MessageList = () => {
   const send = useCallback(
     (message, author = "User") => {
       if (message) {
-        dispatch(sendMessage(roomId, { message, author }));
+        dispatch(sendMessage(roomId, { message, author}));
         setValue("");
       }
     },
@@ -52,7 +52,7 @@ export const MessageList = () => {
       });
     }
   }, [messages]);
-
+/*
   useEffect(() => {
     const lastMessage = messages[messages.length - 1];
     let timerId = null;
@@ -67,6 +67,7 @@ export const MessageList = () => {
       };
     }
   }, [send, messages]);
+  */
 
   return (
     <>
@@ -85,7 +86,7 @@ export const MessageList = () => {
         onKeyPress={handlePressInput}
         endAdornment={
           <InputAdornment position="end">
-            {value && <SendIcon onClick={send} />}
+            {value && <SendIcon onClick={() => send(value)} />}
           </InputAdornment>
         }
       />

@@ -14,7 +14,7 @@ export function Message({ message, roomId }) {
     >
       <h3>{message.message}</h3>
       <p>{message.author}</p>
-      <p>12.03</p>
+      <p>12.04</p>
       <button onClick={() => dispatch(deleteMessage(roomId, message.id))}>
         x
       </button>

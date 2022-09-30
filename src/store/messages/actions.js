@@ -1,7 +1,10 @@
 import { SEND_MESSAGE, DELETE_MESSAGE } from "./types";
 
-export const sendMessage = (roomId, message, date) => {
-  return { type: SEND_MESSAGE, payload: { roomId, message, date } };
+export const sendMessage = (roomId, message) => {
+  return { 
+    type: SEND_MESSAGE, 
+    payload: { roomId, message }, 
+    meta: { delay: 500 } };
 };
 
 export const deleteMessage = (roomId, messageId) => {
